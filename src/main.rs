@@ -1,8 +1,10 @@
 use std::fs;
 use std::io::Read;
 
+extern crate ansi_term;
 extern crate clap;
 
+use ansi_term::Colour::{Blue, Green};
 use clap::{Arg, App};
 
 // FileStats holds information about an individual file
@@ -74,71 +76,71 @@ impl WcStats {
 
     fn print_all(self) {
         for stat in self.stats {
-            println!("{}\t{}\t{}\t{}", stat.lines, stat.words, stat.characters, stat.name);
+            println!("{}\t{}\t{}\t{}", stat.lines, stat.words, stat.characters, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\t{}\t{}\ttotal", self.total.lines, self.total.words, self.total.characters);
+            println!("{}\t{}\t{}\t{}", self.total.lines, self.total.words, self.total.characters, Blue.bold().paint("total"));
         }
     }
 
     fn print_lines_and_words(self) {
         for stat in self.stats {
-            println!("{}\t{}\t{}", stat.lines, stat.words, stat.name);
+            println!("{}\t{}\t{}", stat.lines, stat.words, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\t{}\ttotal", self.total.lines, self.total.words);
+            println!("{}\t{}\t{}", self.total.lines, self.total.words, Blue.bold().paint("total"));
         }
     }
 
     fn print_lines_and_chars(self) {
         for stat in self.stats {
-            println!("{}\t{}\t{}", stat.lines, stat.characters, stat.name);
+            println!("{}\t{}\t{}", stat.lines, stat.characters, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\t{}\ttotal", self.total.lines, self.total.characters);
+            println!("{}\t{}\t{}", self.total.lines, self.total.characters, Blue.bold().paint("total"));
         }
     }
 
     fn print_words_and_chars(self) {
         for stat in self.stats {
-            println!("{}\t{}\t{}", stat.words, stat.characters, stat.name);
+            println!("{}\t{}\t{}", stat.words, stat.characters, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\t{}\ttotal", self.total.words, self.total.characters);
+            println!("{}\t{}\t{}", self.total.words, self.total.characters, Blue.bold().paint("total"));
         }
     }
 
     fn print_lines(self) {
         for stat in self.stats {
-            println!("{}\t{}", stat.lines, stat.name);
+            println!("{}\t{}", stat.lines, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\ttotal", self.total.lines);
+            println!("{}\t{}", self.total.lines, Blue.bold().paint("total"));
         }
     }
 
     fn print_words(self) {
         for stat in self.stats {
-            println!("{}\t{}", stat.words, stat.name);
+            println!("{}\t{}", stat.words, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\ttotal", self.total.words);
+            println!("{}\t{}", self.total.words, Blue.bold().paint("total"));
         }
     }
 
     fn print_chars(self) {
         for stat in self.stats {
-            println!("{}\t{}", stat.characters, stat.name);
+            println!("{}\t{}", stat.characters, Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\ttotal", self.total.characters);
+            println!("{}\t{}", self.total.characters, Blue.bold().paint("total"));
         }
     }
 }
@@ -151,9 +153,9 @@ TODOs:
 - docs/comments
 - add line lenght flag L
 - add bytes flag c
+- error propogation
 
 Ehancements:
-- Add color to the output, themes maybe?
 - Add a recursive call to process files under directories
 */
 fn main() {
