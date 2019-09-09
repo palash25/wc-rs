@@ -1,4 +1,4 @@
-use std::fs;
+use std::fs::File;
 use std::io::Read;
 
 extern crate ansi_term;
@@ -39,35 +39,49 @@ impl WcStats {
     }
 
     // get_stats collects and stores the file stats
-    fn get_stats(&mut self, file: &String) {
-        let filename = file.clone();
+    fn get_stats(&mut self, file: &str) -> Result<(), String> {
+        let filename = file.to_string();
 
-        let mut fobj = fs::File::open(file).expect("couldn't read the file");
-        let mut contents = String::new();
-        fobj.read_to_string(&mut contents);
+        match File::open(file) {
+            Ok(mut fd) => {
+                let mut contents = String::new();
+                match fd.read_to_string(&mut contents) {
+                    Ok(_) => {
+                        let lines: Vec<&str> = contents.lines().collect();
+                        let words: Vec<&str> = contents.split_ascii_whitespace().collect();
 
-        let lines: Vec<&str> = contents.lines().collect();
-        let words: Vec<&str> = contents.split_ascii_whitespace().collect();
-
-        self.total.lines += lines.len();
-        self.total.words += words.len();
-        self.total.characters += contents.len();
-        self.stats.push(FileStats{name: filename, lines: lines.len(), words: words.len(), characters: contents.len()});
+                        self.total.lines += lines.len();
+                        self.total.words += words.len();
+                        self.total.characters += contents.len();
+                        self.stats.push(FileStats{
+                            name: filename, lines: lines.len(), words: words.len(), characters: contents.len()
+                        });
+                        Ok(())
+                    }
+                    Err(e) => {
+                        Err(format!("wc: {}: {}", filename, e))
+                    }
+                }
+            }
+            Err(_) => {
+                Err(format!("wc: {}: No such file or directory", filename))
+            }
+        }
     }
 
     // prints resutls to the console
     fn display(self) {
         if (self.line_flag && self.word_flag && self.char_flag) || !(self.line_flag || self.word_flag || self.char_flag) {
             self.print_all();
-        } else if self.line_flag == true && !(self.word_flag || self.char_flag) {
+        } else if self.line_flag && !(self.word_flag || self.char_flag) {
             self.print_lines();
-        } else if self.word_flag == true && !(self.line_flag || self.char_flag) {
+        } else if self.word_flag && !(self.line_flag || self.char_flag) {
             self.print_words();
-        } else if self.char_flag == true && !(self.word_flag || self.line_flag) {
+        } else if self.char_flag && !(self.word_flag || self.line_flag) {
             self.print_chars();
-        } else if self.line_flag && self.word_flag && self.char_flag == false {
+        } else if self.line_flag && self.word_flag && !self.char_flag {
             self.print_lines_and_words();
-        } else if self.line_flag && self.char_flag && self.word_flag == false {
+        } else if self.line_flag && self.char_flag && !self.word_flag {
             self.print_lines_and_chars();
         } else {
             self.print_words_and_chars();
@@ -153,7 +167,7 @@ TODOs:
 - docs/comments
 - add line lenght flag L
 - add bytes flag c
-- error propogation
+- use a buffered reader for large files
 
 Ehancements:
 - Add a recursive call to process files under directories
@@ -189,7 +203,10 @@ fn main() {
     if matches.is_present("FILE") {
         let file_path_vec: Vec<&str> = matches.values_of("FILE").unwrap().collect();
         for path in file_path_vec {
-            wc.get_stats(&String::from(path));
+            match wc.get_stats(&String::from(path)) {
+                Ok(_) => (),
+                Err(e) => println!("{}", e),
+            }
         }
         wc.number_of_files = wc.stats.len();
         wc.display();
