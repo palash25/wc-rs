@@ -32,9 +32,9 @@ impl WcStats {
             stats: Vec::new(),
             number_of_files: 0,
             total: FileStats{name: String::from(""), lines: 0, words: 0, characters: 0},
-            line_flag: true,
-            word_flag: true,
-            char_flag: true,
+            line_flag: false,
+            word_flag: false,
+            char_flag: false,
         }
     }
 
@@ -69,92 +69,31 @@ impl WcStats {
         }
     }
 
-    // prints resutls to the console
-    fn display(self) {
-        if (self.line_flag && self.word_flag && self.char_flag) || !(self.line_flag || self.word_flag || self.char_flag) {
-            self.print_all();
-        } else if self.line_flag && !(self.word_flag || self.char_flag) {
-            self.print_lines();
-        } else if self.word_flag && !(self.line_flag || self.char_flag) {
-            self.print_words();
-        } else if self.char_flag && !(self.word_flag || self.line_flag) {
-            self.print_chars();
-        } else if self.line_flag && self.word_flag && !self.char_flag {
-            self.print_lines_and_words();
-        } else if self.line_flag && self.char_flag && !self.word_flag {
-            self.print_lines_and_chars();
-        } else {
-            self.print_words_and_chars();
-        }
-    }
-
-    fn print_all(self) {
+    fn print_to_console(self) {
         for stat in self.stats {
-            println!("{}\t{}\t{}\t{}", stat.lines, stat.words, stat.characters, Green.dimmed().paint(stat.name));
+            if self.line_flag {
+                print!("{}\t", stat.lines);
+            }
+            if self.word_flag {
+                print!("{}\t", stat.words);
+            }
+            if self.char_flag {
+                print!("{}\t", stat.characters);
+            }
+            println!("{}", Green.dimmed().paint(stat.name));
         }
 
         if self.number_of_files > 1 {
-            println!("{}\t{}\t{}\t{}", self.total.lines, self.total.words, self.total.characters, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_lines_and_words(self) {
-        for stat in self.stats {
-            println!("{}\t{}\t{}", stat.lines, stat.words, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}\t{}", self.total.lines, self.total.words, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_lines_and_chars(self) {
-        for stat in self.stats {
-            println!("{}\t{}\t{}", stat.lines, stat.characters, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}\t{}", self.total.lines, self.total.characters, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_words_and_chars(self) {
-        for stat in self.stats {
-            println!("{}\t{}\t{}", stat.words, stat.characters, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}\t{}", self.total.words, self.total.characters, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_lines(self) {
-        for stat in self.stats {
-            println!("{}\t{}", stat.lines, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}", self.total.lines, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_words(self) {
-        for stat in self.stats {
-            println!("{}\t{}", stat.words, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}", self.total.words, Blue.bold().paint("total"));
-        }
-    }
-
-    fn print_chars(self) {
-        for stat in self.stats {
-            println!("{}\t{}", stat.characters, Green.dimmed().paint(stat.name));
-        }
-
-        if self.number_of_files > 1 {
-            println!("{}\t{}", self.total.characters, Blue.bold().paint("total"));
+            if self.line_flag {
+                print!("{}\t", self.total.lines);
+            }
+            if self.word_flag {
+                print!("{}\t", self.total.words);
+            }
+            if self.char_flag {
+                print!("{}\t", self.total.characters);
+            }
+            println!("{}", Blue.bold().paint("total"));
         }
     }
 }
@@ -200,6 +139,13 @@ fn main() {
     wc.word_flag = matches.is_present("words");
     wc.char_flag = matches.is_present("chars");
 
+    // if all are false then flip all the flags to `true`
+    if !(wc.line_flag || wc.word_flag || wc.char_flag) {
+        wc.line_flag = true;
+        wc.word_flag = true;
+        wc.char_flag = true;
+    }
+
     if matches.is_present("FILE") {
         let file_path_vec: Vec<&str> = matches.values_of("FILE").unwrap().collect();
         for path in file_path_vec {
@@ -209,7 +155,7 @@ fn main() {
             }
         }
         wc.number_of_files = wc.stats.len();
-        wc.display();
+        wc.print_to_console();
     } else {
         println!("Switch on stdin");
     }
