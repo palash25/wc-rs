@@ -98,19 +98,6 @@ impl WcStats {
     }
 }
 
-/*
-TODOs:
-- Read stdin with no file & listen for ctrl+d in case of stdin
-- Emit a warning in case of dirs but don't fail "wc: benches: Is a directory"
-- Add long help if needed
-- docs/comments
-- add line lenght flag L
-- add bytes flag c
-- use a buffered reader for large files
-
-Ehancements:
-- Add a recursive call to process files under directories
-*/
 fn main() {
     let matches = App::new("wc.rs")
         .version("0.1.0")
