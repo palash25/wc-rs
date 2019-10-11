@@ -8,7 +8,7 @@ homepage = "https://palash25.netlify.com/post/writing-technical-content/"
 repository = "https://github.com/palash25/wc-rs"
 readme = "README.md"
 keywords = ["wc", "unix", "tools"]
-categories = ["tools"]
+categories = ["command-line-interface", "command-line-utilities"]
 license = "MIT"
 
 [badges]
