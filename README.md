@@ -7,6 +7,16 @@ The good old unix tool rewritten in Rust.
 I wanted to learn Rust and this seemed like a small and simple enough project to get started with.
 To my surprise this naive implementation turned out to be faster than the original C implementation of `wc`, take a look at some [numbers](#Stats). This is my first rust project so it might contain some bad code, please raise an issue if you find any room for improvment within the codebase.
 
+## Install
+
+- To download and install using cargo run `cargo install wc-rs`
+- To build from source
+  ```
+    git clone https://github.com/palash25/wc-rs.git
+    cd wc-rs/
+    cargo build --release
+  ```
+
 ## Usage
 
 Same as the standard `wc` command that is shipped with every linux distro.
