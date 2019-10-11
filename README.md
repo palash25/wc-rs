@@ -21,10 +21,10 @@ To my surprise this naive implementation turned out to be faster than the origin
 
 Same as the standard `wc` command that is shipped with every linux distro.
 ```
-$ wc --help
+$ wc-rs --help
 
 USAGE:
-    wc [FLAGS] [FILE]...
+    wc-rs [FLAGS] [FILE]...
 
 FLAGS:
     -m, --chars      prints the character counts
@@ -34,7 +34,7 @@ FLAGS:
     -w, --words      print the words counts
 
 ARGS:
-    <FILE>...    file path(s) to run wc on
+    <FILE>...    file path(s) to run wc-rs on
 ```
 
 ## Stats
@@ -43,7 +43,7 @@ ARGS:
 
 #### Time test
 ```
-$ \time  wc small-file-*
+$ \time  wc-rs small-file-*
  48414   81402  556859 small-file-1
  48414   81402  556859 small-file-2
  48414   81402  556859 small-file-3
@@ -64,7 +64,7 @@ $ \time  ./target/release/wc-rs small-file-*
 #### PV test
 
 ```
-$ wc small-file-* | pv
+$ wc-rs small-file-* | pv
   48414   81402  556859 small-file-1
   48414   81402  556859 small-file-2
   48414   81402  556859 small-file-3
@@ -86,7 +86,7 @@ $ ./target/release/wc-rs small-file-* | pv
 #### Time test
 
 ```
-$ \time  wc big-file-*
+$ \time  wc-rs big-file-*
  2091965  3549748 24604624 big-file-1
  2091965  3549748 24604624 big-file-2
  4183930  7099496 49209248 total
@@ -104,7 +104,7 @@ $ \time  ./target/release/wc-rs big-file-*
 #### PV test
 
 ```
-$ wc big-file-* | pv
+$ wc-rs big-file-* | pv
  2091965  3549748 24604624 big-file-1
  2091965  3549748 24604624 big-file-2
  4183930  7099496 49209248 total
@@ -124,7 +124,7 @@ $ ./target/release/wc-rs big-file-* | pv
 #### Time test
 
 ```
-$ \time  wc bigger-file-*
+$ \time  wc-rs bigger-file-*
  10048406  17328448 124739305 bigger-file-1
  10446226  18017383 129746037 bigger-file-2
  20494632  35345831 254485342 total
@@ -141,7 +141,7 @@ $ \time  ./target/release/wc-rs bigger-file-*
 
 #### PV test
 ```
- wc big-file-* | pv
+ wc-rs big-file-* | pv
  10048406  17328448 124739305 bigger-file-1
  10446226  18017383 129746037 bigger-file-2
  20494632  35345831 254485342 total
@@ -163,7 +163,7 @@ This is where things start to slow down a little. This file has double the numbe
 #### Time test
 
 ```
-$ \time -p wc big-and-chonky.txt
+$ \time -p wc-rs big-and-chonky.txt
 10048951    31711680    274285495  big-and-chonky.txt
 
 real 4.72   user 4.67   sys 0.04
@@ -177,7 +177,7 @@ real 1.89   user 1.36   sys 0.53
 #### PV test
 
 ```
-$ wc big-and-chonky.txt | pv
+$ wc-rs big-and-chonky.txt | pv
 10048951    31711680    274285495   big-and-chonky.txt
 
 46 B 0:00:04 [9.81 B/s] [  <=>                  ]
