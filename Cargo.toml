@@ -14,6 +14,9 @@ license = "MIT"
 [badges]
 maintenance = { status = "actively-maintained" }
 
+[profile.release]
+opt-level = 3
+
 [dependencies]
 clap = "2.31.2"
 ansi_term = "0.12.1"
