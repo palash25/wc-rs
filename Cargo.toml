@@ -1,6 +1,6 @@
 [package]
 name = "wc-rs"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["palash25 <npalash25@gmail.com>"]
 edition = "2018"
 description = "A faster port of the unix wc"
