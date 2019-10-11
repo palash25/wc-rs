@@ -1,10 +1,18 @@
 [package]
-name = "wc"
+name = "wc-rs"
 version = "0.1.0"
 authors = ["palash25 <npalash25@gmail.com>"]
 edition = "2018"
+description = "A faster port of the unix wc"
+homepage = "https://palash25.netlify.com/post/writing-technical-content/"
+repository = "https://github.com/palash25/wc-rs"
+readme = "README.md"
+keywords = ["wc", "unix", "tools"]
+categories = ["tools"]
+license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[badges]
+maintenance = { status = "actively-maintained" }
 
 [dependencies]
 clap = "2.31.2"
