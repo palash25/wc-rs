@@ -11,9 +11,6 @@ keywords = ["wc", "unix", "tools"]
 categories = ["command-line-interface", "command-line-utilities"]
 license = "MIT"
 
-[badges]
-maintenance = { status = "actively-maintained" }
-
 [profile.release]
 opt-level = 3
 
