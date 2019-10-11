@@ -42,7 +42,7 @@ $ \time  wc small-file-*
  real 0:00.05	 user 0.05	 sys 0.00
 
 
-$ \time  ./target/release/wc small-file-*
+$ \time  ./target/release/wc-rs small-file-*
  48414	81402	556859	small-file-1
  48414	81402	556859	small-file-2
  48414	81402	556859	small-file-3
@@ -62,7 +62,7 @@ $ wc small-file-* | pv
 
  159 B 0:00:00 [ 3.1KiB/s] [  <=>                ]
 
-$ ./target/release/wc small-file-* | pv
+$ ./target/release/wc-rs small-file-* | pv
  48414	81402	556859	small-file-1
  48414	81402	556859	small-file-2
  48414	81402	556859	small-file-3
@@ -83,7 +83,7 @@ $ \time  wc big-file-*
 
  real 0:01.14	 user 1.11	 sys 0.02
 
-$ \time  ./target/release/wc big-file-*
+$ \time  ./target/release/wc-rs big-file-*
 2091965	3549748	24604624	big-file-1
 2091965	3549748	24604624	big-file-2
 4183930	7099496	49209248	total
@@ -101,7 +101,7 @@ $ wc big-file-* | pv
 
  121 B 0:00:01 [ 101 B/s] [    <=>               ]
 
-$ ./target/release/wc big-file-* | pv
+$ ./target/release/wc-rs big-file-* | pv
 2091965	3549748	24604624	big-file-1
 2091965	3549748	24604624	big-file-2
 4183930	7099496	49209248	total
@@ -121,7 +121,7 @@ $ \time  wc bigger-file-*
 
  real 0:05.73	 user 5.66	 sys 0.05
 
-$ \time  ./target/release/wc bigger-file-*
+$ \time  ./target/release/wc-rs bigger-file-*
  10048406	17328448	124739305	bigger-file-1
  10446226	18017383	129746037	bigger-file-2
  20494632	35345831	254485342	total
@@ -138,7 +138,7 @@ $ \time  ./target/release/wc bigger-file-*
 
  130 B 0:00:05 [22.5 B/s] [    <=>            ]
 
- ./target/release/wc bigger-file-* | pv
+ ./target/release/wc-rs bigger-file-* | pv
  10048406  17328448 124739305 bigger-file-1
  10446226  18017383 129746037 bigger-file-2
  20494632  35345831 254485342 total
@@ -158,7 +158,7 @@ $ \time -p wc big-and-chonky.txt
 
 real 4.72   user 4.67   sys 0.04
 
-$ \time -p ./target/release/wc big-and-chonky.txt
+$ \time -p ./target/release/wc-rs big-and-chonky.txt
 10048951	31711680	274285495  big-and-chonky.txt
 
 real 1.89   user 1.36   sys 0.53
@@ -172,7 +172,7 @@ $ wc big-and-chonky.txt | pv
 
 46 B 0:00:04 [9.81 B/s] [  <=>                  ]
 
-$ ./target/release/wc big-and-chonky.txt | pv
+$ ./target/release/wc-rs big-and-chonky.txt | pv
 10048951    31711680    274285495   big-and-chonky.txt
 
 55 B 0:00:01 [29.2 B/s] [  <=>                  ]
