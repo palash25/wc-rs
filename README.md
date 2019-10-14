@@ -10,6 +10,7 @@ To my surprise this naive implementation turned out to be faster than the origin
 ## Install
 
 - To download and install using cargo run `cargo install wc-rs`
+- If you don't have cargo just grab the binary from the [releases](https://github.com/palash25/wc-rs/releases) page and put it in your bin
 - To build from source
   ```
     git clone https://github.com/palash25/wc-rs.git
