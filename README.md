@@ -1,4 +1,5 @@
 # wc-rs
+![](https://img.shields.io/crates/d/wc-rs?style=flat)
 
 The good old unix tool rewritten in Rust.
 
