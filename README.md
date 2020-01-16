@@ -95,5 +95,5 @@ $ ./target/release/wc-rs big-and-chonky.txt | pv
 
 ## TODO
 - Read stdin in case no file paths are provided
-- Add line lenght flag L
+- Add line length flag L
 - Add bytes flag c
