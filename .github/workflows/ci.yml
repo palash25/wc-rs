@@ -1,0 +1,20 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+    workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run tests
+        run: |
+            cargo test
+
+      #- name: Run cargo fmt --check
+      #  run: cargo fmt --check
+
